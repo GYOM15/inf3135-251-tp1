@@ -1,0 +1,3 @@
+begin scene
+  building b1 0 0 c 1
+end scene

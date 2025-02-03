@@ -1,0 +1,5 @@
+begin scene
+  building b3 -2 -2 1 1
+  building b2 5 8 2 3
+  building b1 0 0 1 1
+end scene

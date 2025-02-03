@@ -1,0 +1,4 @@
+begin scene
+  antenna a1 0 0 1
+  antenna a2 0 0 2
+end scene
