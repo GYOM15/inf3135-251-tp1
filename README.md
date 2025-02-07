@@ -4,11 +4,7 @@
 
 `kover` est une application en ligne de commande permettant de gérer le positionnement d'antennes de communication en tenant compte des bâtiments environnants. L'application lit une description de scène depuis l'entrée standard et peut effectuer diverses opérations d'analyse comme le calcul de la boîte englobante, la description détaillée de la scène ou un résumé des éléments présents.
 
-Ce projet a été développé dans le cadre du cours INF3135 - Construction et maintenance de logiciels à l'UQAM, sous la supervision du professeur Alexandre Blondin Massé.
-
-## Enoncé
-
-[sujet.md](https://gitlab.info.uqam.ca/millimounou.guy_olivier_yanouba/inf3135-251-tp1/-/blob/master/sujet.md?ref_type=heads)
+Ce projet a été développé dans le cadre du cours INF3135 - Construction et maintenance de logiciels à l'UQAM, sous la supervision du professeur Alexandre Blondin Massé. L'énoncé complet du travail est disponible dans le fichier [sujet.md](https://gitlab.info.uqam.ca/millimounou.guy_olivier_yanouba/inf3135-251-tp1/-/blob/master/sujet.md?ref_type=heads)
 
 ## Auteur
 

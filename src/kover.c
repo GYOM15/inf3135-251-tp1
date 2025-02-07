@@ -79,6 +79,320 @@ typedef struct {
 } Scene;
 
 // --------------------------------------------------------
+// SECTION: FUNCTION PROTOTYPES AND DOCUMENTATION
+// --------------------------------------------------------
+
+/**
+ * @brief Checks if a character is blank (space or tab)
+ * @param c Character to check
+ * @return true if character is blank, false otherwise
+ */
+bool is_blank(char c);
+
+/**
+ * @brief Validates a character for use in an identifier
+ * @param c Character to validate
+ * @param first True if this is the first character of the identifier
+ * @return true if character is valid for the position, false otherwise
+ */
+bool is_valid_id_char(char c, bool first);
+
+/**
+ * @brief Validates a complete identifier string
+ * @param id String to validate
+ * @return true if identifier is valid, false otherwise
+ */
+bool is_valid_id(const char* id);
+
+/**
+ * @brief Validates an integer string, allowing negatives
+ * @param str String to validate
+ * @return true if string represents a valid integer, false otherwise
+ */
+bool is_valid_integer(const char* str);
+
+/**
+ * @brief Validates a positive integer string
+ * @param str String to validate
+ * @return true if string represents a valid positive integer, false otherwise
+ */
+bool is_valid_positive_integer(const char* str);
+
+/**
+ * @brief Checks if a subcommand is valid
+ * @param subcommand String to check
+ * @return true if subcommand is valid, false otherwise
+ */
+bool is_valid_subcommand(const char* subcommand);
+
+/**
+ * @brief Checks if a line is the begin scene marker
+ * @param line String to check
+ * @return true if line is "begin scene", false otherwise
+ */
+bool is_begin_scene(const char* line);
+
+/**
+ * @brief Checks if a line is the end scene marker
+ * @param line String to check
+ * @return true if line is "end scene", false otherwise
+ */
+bool is_end_scene(const char* line);
+
+/**
+ * @brief Removes leading and trailing whitespace from a line
+ * @param line String to trim
+ */
+void trim_line(char* line);
+
+/**
+ * @brief Prints an error message for an unrecognized line
+ * @param line_num Line number where error occurred
+ */
+void print_error_line(int line_num);
+
+/**
+ * @brief Prints error message when subcommand is missing
+ */
+void print_error_mandatory(void);
+
+/**
+ * @brief Prints error message for unrecognized subcommand
+ * @param subcommand The invalid subcommand
+ */
+void print_error_unrecognized(const char* subcommand);
+
+/**
+ * @brief Prints help message with usage instructions
+ */
+void print_help(void);
+
+/**
+ * @brief Checks if two buildings overlap
+ * @param b1 First building
+ * @param b2 Second building
+ * @return true if buildings overlap, false otherwise
+ */
+bool buildings_overlap(const Building* b1, const Building* b2);
+
+/**
+ * @brief Checks for duplicate building ID in scene
+ * @param scene Current scene
+ * @param id ID to check
+ * @return true if ID already exists, false otherwise
+ */
+bool is_duplicate_building_id(const Scene* scene, const char* id);
+
+/**
+ * @brief Checks for duplicate antenna ID in scene
+ * @param scene Current scene
+ * @param id ID to check
+ * @return true if ID already exists, false otherwise
+ */
+bool is_duplicate_antenna_id(const Scene* scene, const char* id);
+
+/**
+ * @brief Checks for overlapping buildings in scene
+ * @param scene Current scene
+ * @param id1 Output parameter for first overlapping building ID
+ * @param id2 Output parameter for second overlapping building ID
+ * @return true if overlapping buildings found, false otherwise
+ */
+bool check_building_overlaps(const Scene* scene, char* id1, char* id2);
+
+/**
+ * @brief Checks if two antennas have same position
+ * @param a1 First antenna
+ * @param a2 Second antenna
+ * @return true if antennas have same position, false otherwise
+ */
+bool has_same_position(const Antenna* a1, const Antenna* a2);
+
+/**
+ * @brief Checks for antennas at same position in scene
+ * @param scene Current scene
+ * @param id1 Output parameter for first antenna ID
+ * @param id2 Output parameter for second antenna ID
+ * @return true if antennas at same position found, false otherwise
+ */
+bool check_antenna_positions(const Scene* scene, char* id1, char* id2);
+
+/**
+ * @brief Validates all arguments of a building line
+ * @param id Building identifier
+ * @param x_str X coordinate string
+ * @param y_str Y coordinate string
+ * @param w_str Width string
+ * @param h_str Height string
+ * @param line_num Line number for error reporting
+ * @return true if all arguments are valid, false otherwise
+ */
+bool validate_building_args(const char* id, const char* x_str, const char* y_str, 
+                          const char* w_str, const char* h_str, int line_num);
+
+/**
+ * @brief Extracts building arguments from a line
+ * @param line Input line
+ * @param id Output for building ID
+ * @param x_str Output for x coordinate string
+ * @param y_str Output for y coordinate string
+ * @param w_str Output for width string
+ * @param h_str Output for height string
+ * @param line_num Line number for error reporting
+ * @return true if extraction successful, false otherwise
+ */
+bool extract_building_args(const char* line, char* id, char* x_str, char* y_str,
+                         char* w_str, char* h_str, int line_num);
+
+/**
+ * @brief Constructs a Building structure from validated arguments
+ * @param building Output Building structure
+ * @param id Building ID
+ * @param x_str X coordinate string
+ * @param y_str Y coordinate string
+ * @param w_str Width string
+ * @param h_str Height string
+ */
+void construct_building(Building* building, const char* id, const char* x_str,
+                      const char* y_str, const char* w_str, const char* h_str);
+
+/**
+ * @brief Validates all arguments of an antenna line
+ * @param id Antenna identifier
+ * @param x_str X coordinate string
+ * @param y_str Y coordinate string
+ * @param r_str Radius string
+ * @param line_num Line number for error reporting
+ * @return true if all arguments are valid, false otherwise
+ */
+bool validate_antenna_args(const char* id, const char* x_str, const char* y_str,
+                         const char* r_str, int line_num);
+
+/**
+ * @brief Extracts antenna arguments from a line
+ * @param line Input line
+ * @param id Output for antenna ID
+ * @param x_str Output for x coordinate string
+ * @param y_str Output for y coordinate string
+ * @param r_str Output for radius string
+ * @param line_num Line number for error reporting
+ * @return true if extraction successful, false otherwise
+ */
+bool extract_antenna_args(const char* line, char* id, char* x_str, char* y_str,
+                        char* r_str, int line_num);
+
+/**
+ * @brief Constructs an Antenna structure from validated arguments
+ * @param antenna Output Antenna structure
+ * @param id Antenna ID
+ * @param x_str X coordinate string
+ * @param y_str Y coordinate string
+ * @param r_str Radius string
+ */
+void construct_antenna(Antenna* antenna, const char* id, const char* x_str,
+                      const char* y_str, const char* r_str);
+
+/**
+ * @brief Prints buildings in sorted order
+ * @param scene Scene containing buildings
+ */
+void print_sorted_buildings(const Scene* scene);
+
+/**
+ * @brief Prints antennas in sorted order
+ * @param scene Scene containing antennas
+ */
+void print_sorted_antennas(const Scene* scene);
+
+/**
+ * @brief Initializes an empty scene
+ * @param scene Scene to initialize
+ */
+void init_scene(Scene* scene);
+
+/**
+ * @brief Processes a building line and adds to scene
+ * @param scene Current scene
+ * @param line Line to process
+ * @param line_num Current line number for error reporting
+ * @return true if processing successful, false otherwise
+ */
+bool process_building(Scene* scene, const char* line, int line_num);
+
+/**
+ * @brief Processes an antenna line and adds to scene
+ * @param scene Current scene
+ * @param line Line to process
+ * @param line_num Current line number for error reporting
+ * @return true if processing successful, false otherwise
+ */
+bool process_antenna(Scene* scene, const char* line, int line_num);
+
+/**
+ * @brief Processes any input line
+ * @param scene Current scene
+ * @param line Line to process
+ * @param line_num Current line number for error reporting
+ * @return true if processing successful, false otherwise
+ */
+bool process_line(Scene* scene, char* line, int line_num);
+
+/**
+ * @brief Reads complete scene from stdin
+ * @param scene Output parameter for read scene
+ * @return true if reading successful, false otherwise
+ */
+bool read_scene(Scene* scene);
+
+/**
+ * @brief Computes bounding box for scene
+ * @param scene Scene to analyze
+ * @param min_x Output parameter for minimum x coordinate
+ * @param max_x Output parameter for maximum x coordinate
+ * @param min_y Output parameter for minimum y coordinate
+ * @param max_y Output parameter for maximum y coordinate
+ */
+void compute_bounding_box(const Scene* scene, int* min_x, int* max_x, int* min_y, int* max_y);
+
+/**
+ * @brief Prints scene bounding box
+ * @param scene Scene to analyze
+ */
+void print_bounding_box(const Scene* scene);
+
+/**
+ * @brief Prints scene summary
+ * @param scene Scene to summarize
+ */
+void print_summary(const Scene* scene);
+
+/**
+ * @brief Prints building details
+ * @param b Building to print
+ */
+void print_building(const Building* b);
+
+/**
+ * @brief Prints antenna details
+ * @param a Antenna to print
+ */
+void print_antenna(const Antenna* a);
+
+/**
+ * @brief Comparison function for sorting IDs
+ * @param a First ID to compare
+ * @param b Second ID to compare
+ * @return Negative if a<b, 0 if equal, positive if a>b
+ */
+int compare_ids(const void* a, const void* b);
+
+/**
+ * @brief Prints detailed scene description
+ * @param scene Scene to describe
+ */
+void print_description(const Scene* scene);
+
+// --------------------------------------------------------
 // SECTION: UTILITY AND VALIDATION FUNCTIONS
 // --------------------------------------------------------
 
@@ -250,87 +564,155 @@ bool check_antenna_positions(const Scene* scene, char* id1, char* id2) {
 // SECTION: PARSING FUNCTIONS
 // --------------------------------------------------------
 
-bool parse_building_line(const char* line, Building* building, int line_num) {
-    char id[MAX_ID_LENGTH];
-    char x_str[MAX_ARG_LENGTH], y_str[MAX_ARG_LENGTH];
-    char w_str[MAX_ARG_LENGTH], h_str[MAX_ARG_LENGTH];
-    
-    if (sscanf(line, " building %10s %10s %10s %10s %10s ", 
-               id, x_str, y_str, w_str, h_str) != 5) {
-        fprintf(stderr, "error: building line has wrong number of arguments (line #%d)\n", line_num);
-        return false;
-    }
 
+bool validate_building_args(const char* id, const char* x_str, const char* y_str,
+                          const char* w_str, const char* h_str, int line_num) {
     if (!is_valid_id(id)) {
         fprintf(stderr, "error: invalid identifier \"%s\" (line #%d)\n", id, line_num);
         return false;
     }
-
     if (!is_valid_integer(x_str)) {
         fprintf(stderr, "error: invalid integer \"%s\" (line #%d)\n", x_str, line_num);
         return false;
     }
-
     if (!is_valid_integer(y_str)) {
         fprintf(stderr, "error: invalid integer \"%s\" (line #%d)\n", y_str, line_num);
         return false;
     }
-
     if (!is_valid_positive_integer(w_str)) {
         fprintf(stderr, "error: invalid positive integer \"%s\" (line #%d)\n", w_str, line_num);
         return false;
     }
-
     if (!is_valid_positive_integer(h_str)) {
         fprintf(stderr, "error: invalid positive integer \"%s\" (line #%d)\n", h_str, line_num);
         return false;
     }
+    return true;
+}
 
+bool extract_building_args(const char* line, char* id, char* x_str, char* y_str,
+                         char* w_str, char* h_str, int line_num) {
+    if (sscanf(line, " building %10s %10s %10s %10s %10s ",
+               id, x_str, y_str, w_str, h_str) != 5) {
+        fprintf(stderr, "error: building line has wrong number of arguments (line #%d)\n", line_num);
+        return false;
+    }
+    return true;
+}
+
+void construct_building(Building* building, const char* id, const char* x_str,
+                      const char* y_str, const char* w_str, const char* h_str) {
     strcpy(building->id, id);
     building->x = atoi(x_str);
     building->y = atoi(y_str);
     building->w = atoi(w_str);
     building->h = atoi(h_str);
+}
+
+bool parse_building_line(const char* line, Building* building, int line_num) {
+    char id[MAX_ID_LENGTH];
+    char x_str[MAX_ARG_LENGTH], y_str[MAX_ARG_LENGTH];
+    char w_str[MAX_ARG_LENGTH], h_str[MAX_ARG_LENGTH];
     
+    if (!extract_building_args(line, id, x_str, y_str, w_str, h_str, line_num)) {
+        return false;
+    }
+    
+    if (!validate_building_args(id, x_str, y_str, w_str, h_str, line_num)) {
+        return false;
+    }
+    
+    construct_building(building, id, x_str, y_str, w_str, h_str);
     return true;
+}
+
+bool validate_antenna_args(const char* id, const char* x_str, const char* y_str,
+                         const char* r_str, int line_num) {
+    if (!is_valid_id(id)) {
+        fprintf(stderr, "error: invalid identifier \"%s\" (line #%d)\n", id, line_num);
+        return false;
+    }
+    if (!is_valid_integer(x_str)) {
+        fprintf(stderr, "error: invalid integer \"%s\" (line #%d)\n", x_str, line_num);
+        return false;
+    }
+    if (!is_valid_integer(y_str)) {
+        fprintf(stderr, "error: invalid integer \"%s\" (line #%d)\n", y_str, line_num);
+        return false;
+    }
+    if (!is_valid_positive_integer(r_str)) {
+        fprintf(stderr, "error: invalid positive integer \"%s\" (line #%d)\n", r_str, line_num);
+        return false;
+    }
+    return true;
+}
+
+bool extract_antenna_args(const char* line, char* id, char* x_str, char* y_str,
+                        char* r_str, int line_num) {
+    if (sscanf(line, " antenna %10s %10s %10s %10s ",
+               id, x_str, y_str, r_str) != 4) {
+        fprintf(stderr, "error: antenna line has wrong number of arguments (line #%d)\n", line_num);
+        return false;
+    }
+    return true;
+}
+
+void construct_antenna(Antenna* antenna, const char* id, const char* x_str,
+                      const char* y_str, const char* r_str) {
+    strcpy(antenna->id, id);
+    antenna->x = atoi(x_str);
+    antenna->y = atoi(y_str);
+    antenna->r = atoi(r_str);
 }
 
 bool parse_antenna_line(const char* line, Antenna* antenna, int line_num) {
     char id[MAX_ID_LENGTH];
     char x_str[MAX_ARG_LENGTH], y_str[MAX_ARG_LENGTH], r_str[MAX_ARG_LENGTH];
     
-    if (sscanf(line, " antenna %10s %10s %10s %10s ", 
-               id, x_str, y_str, r_str) != 4) {
-        fprintf(stderr, "error: antenna line has wrong number of arguments (line #%d)\n", line_num);
+    if (!extract_antenna_args(line, id, x_str, y_str, r_str, line_num)) {
         return false;
     }
-
-    if (!is_valid_id(id)) {
-        fprintf(stderr, "error: invalid identifier \"%s\" (line #%d)\n", id, line_num);
-        return false;
-    }
-
-    if (!is_valid_integer(x_str)) {
-        fprintf(stderr, "error: invalid integer \"%s\" (line #%d)\n", x_str, line_num);
-        return false;
-    }
-
-    if (!is_valid_integer(y_str)) {
-        fprintf(stderr, "error: invalid integer \"%s\" (line #%d)\n", y_str, line_num);
-        return false;
-    }
-
-    if (!is_valid_positive_integer(r_str)) {
-        fprintf(stderr, "error: invalid positive integer \"%s\" (line #%d)\n", r_str, line_num);
-        return false;
-    }
-
-    strcpy(antenna->id, id);
-    antenna->x = atoi(x_str);
-    antenna->y = atoi(y_str);
-    antenna->r = atoi(r_str);
     
+    if (!validate_antenna_args(id, x_str, y_str, r_str, line_num)) {
+        return false;
+    }
+    
+    construct_antenna(antenna, id, x_str, y_str, r_str);
     return true;
+}
+
+void print_sorted_buildings(const Scene* scene) {
+    const char* building_ids[MAX_BUILDINGS];
+    for (int i = 0; i < scene->num_buildings; i++) {
+        building_ids[i] = scene->buildings[i].id;
+    }
+    qsort(building_ids, scene->num_buildings, sizeof(char*), compare_ids);
+    
+    for (int i = 0; i < scene->num_buildings; i++) {
+        for (int j = 0; j < scene->num_buildings; j++) {
+            if (strcmp(building_ids[i], scene->buildings[j].id) == 0) {
+                print_building(&scene->buildings[j]);
+                break;
+            }
+        }
+    }
+}
+
+void print_sorted_antennas(const Scene* scene) {
+    const char* antenna_ids[MAX_ANTENNAS];
+    for (int i = 0; i < scene->num_antennas; i++) {
+        antenna_ids[i] = scene->antennas[i].id;
+    }
+    qsort(antenna_ids, scene->num_antennas, sizeof(char*), compare_ids);
+    
+    for (int i = 0; i < scene->num_antennas; i++) {
+        for (int j = 0; j < scene->num_antennas; j++) {
+            if (strcmp(antenna_ids[i], scene->antennas[j].id) == 0) {
+                print_antenna(&scene->antennas[j]);
+                break;
+            }
+        }
+    }
 }
 
 // --------------------------------------------------------
@@ -496,40 +878,8 @@ int compare_ids(const void* a, const void* b) {
 
 void print_description(const Scene* scene) {
     print_summary(scene);
-    
-    // Sort buildings by ID
-    const char* building_ids[MAX_BUILDINGS];
-    for (int i = 0; i < scene->num_buildings; i++) {
-        building_ids[i] = scene->buildings[i].id;
-    }
-    qsort(building_ids, scene->num_buildings, sizeof(char*), compare_ids);
-    
-    // Print buildings in sorted order
-    for (int i = 0; i < scene->num_buildings; i++) {
-        for (int j = 0; j < scene->num_buildings; j++) {
-            if (strcmp(building_ids[i], scene->buildings[j].id) == 0) {
-                print_building(&scene->buildings[j]);
-                break;
-            }
-        }
-    }
-    
-    // Sort antennas by ID
-    const char* antenna_ids[MAX_ANTENNAS];
-    for (int i = 0; i < scene->num_antennas; i++) {
-        antenna_ids[i] = scene->antennas[i].id;
-    }
-    qsort(antenna_ids, scene->num_antennas, sizeof(char*), compare_ids);
-    
-    // Print antennas in sorted order
-    for (int i = 0; i < scene->num_antennas; i++) {
-        for (int j = 0; j < scene->num_antennas; j++) {
-            if (strcmp(antenna_ids[i], scene->antennas[j].id) == 0) {
-                print_antenna(&scene->antennas[j]);
-                break;
-            }
-        }
-    }
+    print_sorted_buildings(scene);
+    print_sorted_antennas(scene);
 }
 
 // --------------------------------------------------------
